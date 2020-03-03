@@ -11,8 +11,8 @@ HOOK = 0
     
 REEL_TICKS = 5000
 CLAW_TICKS = 9800
-HOOK_UP = 1660
-HOOK_DOWN = 250
+HOOK_UP = 250
+HOOK_DOWN = 1660
     
 def lower_reel():
 	KIPR.cmpc(REEL)
@@ -61,24 +61,28 @@ def raise_reel_full():
 		print(KIPR.gmpc(REEL), KIPR.gmpc(CLAW))
 		KIPR.msleep(100)
             
+		#close a little
 		KIPR.mav(CLAW, 1200)
 		while KIPR.gmpc(CLAW) < 445:
 			pass
 		KIPR.mav(CLAW,0)
-
+	
+		#open a little
 		KIPR.mav(REEL, -200)
 		while KIPR.gmpc(REEL) > -75:
 			pass
 		KIPR.mav(REEL,0)
    
+	#finish closing
 	KIPR.cmpc(CLAW)
 	KIPR.mav(CLAW, 1200)
 	while KIPR.gmpc(CLAW) < (CLAW_TICKS-pos*445):
 		pass
 	KIPR.ao()
-                
+	
+	#finish raising
 	KIPR.cmpc(REEL)
-	KIPR.mav(REEL, -200)
+	KIPR.mav(REEL, -800)
 	while KIPR.gmpc(REEL) > -(REEL_TICKS-(pos*75)):
 		pass
 	KIPR.mav(REEL, 0)

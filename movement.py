@@ -105,7 +105,7 @@ def line_follow_ticks(speed, ticks):
 		elif reading > THRESH:
 			KIPR.mav(LM, speed-300)
 			KIPR.mav(RM, speed+300)
-	ao()
+	KIPR.ao()
         
         
         
